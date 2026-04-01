@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verandah Properties — Guía de Abril</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #008C82;
+    --teal-light: #00a99d;
+    --teal-pale: #e8f5f4;
+    --teal-mid: #c2e8e5;
+    --gold: #D4AF50;
+    --gold-pale: #fdf8ec;
+    --gold-mid: #f0d97a;
+    --dark: #1a2428;
+    --mid: #3d5158;
+    --muted: #7a9098;
+    --light: #f4f7f7;
+    --white: #ffffff;
+    --border: #dce8e7;
+    --warn: #b83232;
+    --warn-pale: #fdf1f0;
+    --phase-bg: #f0f8f7;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--dark);
+    padding: 28px 44px 22px;
+    border-bottom: 3px solid var(--gold);
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    color: var(--white);
+    font-size: 22px;
+    letter-spacing: 0.02em;
+  }
+  .header .sub {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+  .badge {
+    background: var(--teal);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+  }
+
+  /* PURPOSE BAR */
+  .purpose {
+    background: var(--teal);
+    color: var(--white);
+    padding: 14px 44px;
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+  .purpose-inner { max-width: 900px; margin: 0 auto; }
+  .purpose strong { color: var(--gold-mid); }
+
+  /* CONTAINER */
+  .container { max-width: 900px; margin: 0 auto; padding: 36px 20px 70px; }
+
+  /* PHILOSOPHY BLOCK */
+  .philosophy {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--gold);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin-bottom: 32px;
+  }
+  .philosophy h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+  .philosophy p {
+    font-size: 13.5px;
+    color: var(--mid);
+    margin-bottom: 10px;
+    line-height: 1.7;
+  }
+  .philosophy p:last-child { margin-bottom: 0; }
+  .philosophy em { color: var(--teal); font-style: italic; }
+
+  /* PHASE HEADERS */
+  .phase-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 36px 0 16px;
+  }
+  .phase-pill {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .pill-teal { background: var(--teal); color: var(--white); }
+  .pill-gold { background: var(--gold); color: var(--dark); }
+  .pill-dark { background: var(--dark); color: var(--white); }
+  .pill-mid { background: var(--mid); color: var(--white); }
+  .phase-line { flex: 1; height: 1px; background: var(--border); }
+  .phase-desc { font-size: 12.5px; color: var(--muted); font-style: italic; white-space: nowrap; }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .card-hd {
+    padding: 15px 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .card-hd:hover { background: var(--light); }
+  .card-hd.open { border-bottom: 1px solid var(--border); }
+  .step-circle {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--teal);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-circle.gold { background: var(--gold); color: var(--dark); }
+  .card-hd h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15.5px;
+    font-weight: 600;
+    flex: 1;
+    color: var(--dark);
+  }
+  .card-hd .time-est {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    background: var(--light);
+    padding: 3px 9px;
+    border-radius: 10px;
+  }
+  .chevron { font-size: 11px; color: var(--muted); transition: transform 0.2s; }
+  .chevron.open { transform: rotate(180deg); }
+  .card-bd {
+    padding: 0 22px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.2s;
+  }
+  .card-bd.open { max-height: 3000px; padding: 20px 22px 24px; }
+
+  /* SAY / NOTE / WARN */
+  .say {
+    background: var(--teal-pale);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 7px 7px 0;
+    padding: 12px 16px;
+    margin: 12px 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--dark);
+    font-style: italic;
+  }
+  .say .lbl {
+    font-style: normal;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    display: block;
+    margin-bottom: 5px;
+  }
+  .say.gold-say {
+    background: var(--gold-pale);
+    border-left-color: var(--gold);
+  }
+  .say.gold-say .lbl { color: #9a7b1a; }
+
+  .note {
+    background: var(--gold-pale);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 7px 7px 0;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 13px;
+    color: var(--mid);
+    line-height: 1.6;
+  }
+  .note .lbl {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9a7b1a;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .warn {
+    background: var(--warn-pale);
+    border-left: 3px solid var(--warn);
+    border-radius: 0 7px 7px 0;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 13px;
+    color: #7a1a1a;
+  }
+  .warn .lbl {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--warn);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* BRANCH */
+  .branch-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin: 16px 0 10px;
+  }
+  .branch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .branch {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .branch-head {
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .bh-yes { background: var(--teal); color: var(--white); }
+  .bh-no { background: var(--mid); color: var(--white); }
+  .branch-body {
+    padding: 12px 14px;
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+  .branch-say {
+    background: var(--teal-pale);
+    border-radius: 5px;
+    padding: 9px 11px;
+    font-size: 13px;
+    margin-top: 9px;
+    font-style: italic;
+    color: var(--dark);
+  }
+  .branch-say.no-say { background: #f0f4f5; }
+
+  /* VALUE PILLARS */
+  .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+  .pillar {
+    background: var(--phase-bg);
+    border: 1px solid var(--teal-mid);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+  .pillar .p-icon { font-size: 18px; margin-bottom: 6px; display: block; }
+  .pillar .p-title { font-weight: 700; color: var(--teal); font-size: 13px; margin-bottom: 4px; }
+
+  /* QUALIFIER TABLE */
+  .q-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13.5px; }
+  .q-table th {
+    background: var(--dark);
+    color: var(--white);
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .q-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .q-table tr:last-child td { border-bottom: none; }
+  .q-table tr:nth-child(even) td { background: var(--light); }
+  .tag-req { color: var(--warn); font-size: 11px; font-weight: 700; }
+  .tag-opt { color: var(--muted); font-size: 11px; }
+  .tag-fu { color: var(--teal); font-size: 11px; font-weight: 600; }
+
+  /* FEES BOX */
+  .fees-box {
+    background: var(--dark);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin: 14px 0;
+  }
+  .fees-box h4 {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 15px;
+    margin-bottom: 14px;
+  }
+  .fees-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .fee-item {
+    background: rgba(255,255,255,0.07);
+    border-radius: 7px;
+    padding: 12px 14px;
+  }
+  .fee-item .fee-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 5px; }
+  .fee-item .fee-val { font-size: 20px; font-weight: 700; color: var(--gold-mid); }
+  .fee-item .fee-desc { font-size: 12px; color: #a0b8bc; margin-top: 3px; }
+  .fees-say {
+    background: rgba(255,255,255,0.06);
+    border-left: 3px solid var(--teal-light);
+    border-radius: 0 6px 6px 0;
+    padding: 11px 14px;
+    font-size: 13.5px;
+    font-style: italic;
+    line-height: 1.7;
+  }
+  .fees-note { font-size: 12px; color: #a0b8bc; margin-top: 12px; line-height: 1.5; }
+
+  /* CLOSE BOX */
+  .close-box {
+    background: var(--teal);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 22px 26px;
+    margin-top: 10px;
+  }
+  .close-box h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    margin-bottom: 12px;
+    color: var(--gold-mid);
+  }
+  .close-say {
+    background: rgba(255,255,255,0.12);
+    border-left: 3px solid var(--gold-mid);
+    border-radius: 0 6px 6px 0;
+    padding: 11px 14px;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .close-checklist { font-size: 12.5px; color: rgba(255,255,255,0.8); line-height: 1.8; }
+
+  /* FOLLOW-UP SECTION */
+  .followup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+  .fu-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .fu-item .fu-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+  .fu-badge.today { background: var(--teal-pale); color: var(--teal); }
+  .fu-badge.later { background: var(--gold-pale); color: #9a7b1a; }
+  .fu-item ul { padding-left: 16px; font-size: 13px; color: var(--mid); line-height: 1.8; }
+
+  /* FOOTER */
+  .footer {
+    margin-top: 44px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+  }
+
+  @media(max-width: 620px) {
+    .branch-grid, .pillars, .fees-grid, .followup-grid { grid-template-columns: 1fr; }
+    .header-inner { flex-direction: column; gap: 12px; align-items: flex-start; }
+    .header, .purpose { padding-left: 20px; padding-right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <h1>Verandah Properties</h1>
+      <div class="sub">Guía de Conversación para Abril — Uso Interno</div>
+    </div>
+    <div class="badge">Confidencial</div>
+  </div>
+</div>
+
+<div class="purpose">
+  <div class="purpose-inner">
+    <strong>Propósito:</strong> Esta guía te ayuda a tener una primera conversación cálida, profesional y efectiva con un cliente potencial hispanohablante en el área de St. Cloud / Lake Nona. Tu objetivo no es vender — es <strong>conectar, escuchar, educar sobre nuestro valor</strong> y recopilar la información que necesita Pamela para el seguimiento. Tú eres el puente.
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- PHILOSOPHY -->
+  <div class="philosophy">
+    <h2>Lo que debes entender antes de la llamada</h2>
+    <p>La mayoría de los clientes potenciales llaman pensando en una sola pregunta: <em>"¿Cuánto cobran?"</em> Pero eso no es lo que realmente necesitan saber primero. Lo que necesitan entender es el <em>valor</em> que reciben — y cuando lo entienden bien, el costo tiene sentido.</p>
+    <p>Verandah no es solo una empresa de administración de propiedades. Somos socios. Trabajamos únicamente con propietarios que comparten nuestra filosofía: <em>una propiedad bien presentada atrae a los mejores inquilinos, y los mejores inquilinos protegen esa propiedad.</em> Es una relación que beneficia a todos.</p>
+    <p>Nuestro servicio es de <em>guante blanco</em> — personalizado, atento y profesional desde el primer día. Eso es lo que nos diferencia, y eso es lo que transmitirás en esta conversación.</p>
+  </div>
+
+  <!-- PHASE 1: OPENING -->
+  <div class="phase-label">
+    <span class="phase-pill pill-teal">Fase 1</span>
+    <span class="phase-line"></span>
+    <span class="phase-desc">Apertura — ~2 minutos</span>
+  </div>
+
+  <div class="card">
+    <div class="card-hd open" onclick="toggle(this)">
+      <div class="step-circle">1</div>
+      <h3>Saludo e Introducción</h3>
+      <span class="time-est">1–2 min</span>
+      <span class="chevron open">▼</span>
+    </div>
+    <div class="card-bd open">
+      <div class="say">
+        <span class="lbl">Di</span>
+        "¡Hola! Buenos días / tardes. Mi nombre es Abril y soy parte del equipo de Verandah Properties. Me comunicaron que estabas interesado/a en conocer más sobre nuestros servicios — me alegra mucho que hayas llamado. ¿Cómo estás hoy?"
+      </div>
+      <div class="note">
+        <span class="lbl">Nota</span>
+        Tómate un momento para escuchar su respuesta. Un poco de charla amistosa al inicio genera confianza. No tengas prisa — esta persona eligió llamar a una empresa hispanohablante porque se siente más cómoda así. Honra eso.
+      </div>
+      <div class="say">
+        <span class="lbl">Continúa con</span>
+        "Con gusto te cuento un poco sobre lo que hacemos en Verandah y también quisiera escuchar un poco más sobre tu propiedad y lo que estás buscando, ¿te parece bien?"
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW DID THEY HEAR -->
+  <div class="card">
+    <div class="card-hd open" onclick="toggle(this)">
+      <div class="step-circle">2</div>
+      <h3>¿Cómo nos conociste?</h3>
+      <span class="time-est">1 min</span>
+      <span class="chevron open">▼</span>
+    </div>
+    <div class="card-bd open">
+      <div class="say">
+        <span class="lbl">Pregunta</span>
+        "Antes de comenzar, me gustaría saber — ¿cómo te enteraste de Verandah Properties?"
+      </div>
+      <div class="note">
+        <span class="lbl">Por qué importa</span>
+        Esta información ayuda a Pamela a entender cómo llegó el cliente y qué expectativas puede traer. Anota la respuesta exacta.
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2: WHO WE ARE -->
+  <div class="phase-label">
+    <span class="phase-pill pill-teal">Fase 2</span>
+    <span class="phase-line"></span>
+    <span class="phase-desc">Presentación de Verandah — ~3 minutos</span>
+  </div>
+
+  <div class="card">
+    <div class="card-hd open" onclick="toggle(this)">
+      <div class="step-circle">3</div>
+      <h3>Quiénes Somos — El Mensaje Central</h3>
+      <span class="time-est">2–3 min</span>
+      <span class="chevron open">▼</span>
+    </div>
+    <div class="card-bd open">
+      <div class="say">
+        <span class="lbl">Di con tus palabras naturales</span>
+        "Verandah Properties es una empresa boutique de administración de propiedades residenciales con más de 20 años sirviendo el área de Lake Nona y el centro de Florida. Nos especializamos en la zona de Lake Nona y St. Cloud, precisamente donde está tu propiedad, así que conocemos muy bien el mercado local."
+      </div>
+      <div class="say">
+        <span class="lbl">Continúa</span>
+        "Lo que nos hace diferentes es nuestro enfoque personalizado. Desde el momento en que empezamos a trabajar juntos, tienes un enlace asignado que te acompaña en todo el proceso — desde la preparación de la propiedad hasta que se renta. No eres un número en una lista; eres un socio."
+      </div>
+
+      <div class="pillars">
+        <div class="pillar">
+          <span class="p-icon">🏡</span>
+          <div class="p-title">Propiedades listas para rentar</div>
+          Trabajamos con propietarios que cuidan su propiedad — eso atrae a los mejores inquilinos.
+        </div>
+        <div class="pillar">
+          <span class="p-icon">🎯</span>
+          <div class="p-title">Inquilinos altamente calificados</div>
+          Nuestro proceso de selección atrae a inquilinos que pagan a tiempo y cuidan el hogar.
+        </div>
+        <div class="pillar">
+          <span class="p-icon">🛡️</span>
+          <div class="p-title">Protección y cumplimiento</div>
+          Manejamos violaciones de HOA, hacemos cumplir el contrato y mitigamos riesgos legales.
+        </div>
+        <div class="pillar">
+          <span class="p-icon">📊</span>
+          <div class="p-title">Programa SureVestor</div>
+          Reportamos pagos puntuales o tardíos directamente a Experian — incentivo real para el inquilino.
+        </div>
+      </div>
+
+      <div class="say">
+        <span class="lbl">Cierra esta sección con</span>
+        "Para nosotros, rentar una propiedad es un negocio — y lo tratamos como tal. Nuestro objetivo es que tanto tú como el inquilino terminen exactamente donde esperaban estar. Eso es lo que llamamos una alianza exitosa."
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3: QUALIFYING -->
+  <div class="phase-label">
+    <span class="phase-pill pill-gold">Fase 3</span>
+    <span class="phase-line"></span>
+    <span class="phase-desc">Conocer al cliente — ~5 minutos</span>
+  </div>
+
+  <div class="card">
+    <div class="card-hd open" onclick="toggle(this)">
+      <div class="step-circle gold">4</div>
+      <h3>Preguntas de Calificación — La Propiedad</h3>
+      <span class="time-est">4–5 min</span>
+      <span class="chevron open">▼</span>
+    </div>
+    <div class="card-bd open">
+      <div class="say">
+        <span class="lbl">Transición natural</span>
+        "Ahora me gustaría escucharte a ti — cuéntame un poco sobre tu propiedad y lo que estás buscando."
+      </div>
+
+      <table class="q-table">
+        <thead>
+          <tr><th>Información</th><th>Cómo Preguntarlo</th><th>Prioridad</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Dirección completa</strong></td>
+            <td>"¿Me podrías dar la dirección completa de la propiedad, incluyendo ciudad y código postal?"</td>
+            <td><span class="tag-req">Esencial</span></td>
+          </tr>
+          <tr>
+            <td><strong>Tipo de propiedad</strong></td>
+            <td>"¿Es una casa unifamiliar, un townhome o un condominio?"</td>
+            <td><span class="tag-req">Esencial</span></td>
+          </tr>
+          <tr>
+            <td><strong>Habitaciones y baños</strong></td>
+            <td>"¿Cuántos cuartos y baños tiene?"</td>
+            <td><span class="tag-req">Esencial</span></td>
+          </tr>
+          <tr>
+            <td><strong>Estado actual</strong></td>
+            <td>"¿La propiedad está actualmente ocupada o vacía?"</td>
+            <td><span class="tag-req">Esencial</span></td>
+          </tr>
+          <tr>
+            <td><strong>¿Cuándo estará lista?</strong></td>
+            <td>"¿Para cuándo calculas que estaría lista para recibir un nuevo inquilino?"</td>
+            <td><span class="tag-req">Esencial</span></td>
+          </tr>
+          <tr>
+            <td><strong>Condición de la propiedad</strong></td>
+            <td>"¿Cómo describirías el estado actual de la propiedad — está en buenas condiciones, necesita alguna actualización?"</td>
+            <td><span class="tag-opt">Importante</span></td>
+          </tr>
+          <tr>
+            <td><strong>Idea del precio de renta</strong></td>
+            <td>"¿Tienes alguna idea de cuánto esperarías recibir de renta mensualmente? No te preocupes si no estás seguro/a — si avanzamos, nuestra broker realizará un análisis comparativo de mercado para darte una valoración precisa."</td>
+            <td><span class="tag-opt">Importante</span></td>
+          </tr>
+          <tr>
+            <td><strong>¿Tiene HOA?</strong></td>
+            <td>"¿La propiedad tiene HOA? ¿Sabes cuánto es la cuota mensual?"</td>
+            <td><span class="tag-opt">Importante</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-hd open" onclick="toggle(this)">
+      <div class="step-circle gold">5</div>
+      <h3>Experiencia Previa y Metas a Largo Plazo</h3>
+      <span class="time-est">3–4 min</span>
+      <span class="chevron open">▼</span>
+    </div>
+    <div class="card-bd open">
+
+      <div class="say">
+        <span class="lbl">Pregunta sobre experiencia previa</span>
+        "¿Alguna vez has usado los servicios de una empresa de administración de propiedades antes?"
+      </div>
+
+      <div class="branch-title">Dependiendo de su respuesta:</div>
+      <div class="branch-grid">
+        <div class="branch">
+          <div class="branch-head bh-yes">✓ Sí, ha tenido administradora antes</div>
+          <div class="branch-body">
+            Escucha con interés. Pregunta:
+            <div class="branch-say">"¿Cómo fue esa experiencia? ¿Hubo algo que te gustaría que fuera diferente esta vez?"</div>
+            <div style="margin-top:8px; font-size:13px; color:var(--mid);">Esto te dará información valiosa y mostrará que te importa su historia.</div>
+          </div>
+        </div>
+        <div class="branch">
+          <div class="branch-head bh-no">→ No, es su primera vez</div>
+          <div class="branch-body">
+            <div class="branch-say no-say">"Perfecto — entonces estarás en buenas manos. Muchos de nuestros mejores clientes empezaron exactamente igual, sin experiencia previa, y hoy nos dicen que desearían haberlo hecho antes."</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="say" style="margin-top:16px;">
+        <span class="lbl">Metas a largo plazo</span>
+        "¿Cuál es tu meta con esta propiedad a largo plazo? ¿Planeas mantenerla como inversión por muchos años, o todavía estás evaluando tus opciones?"
+      </div>
+      <div class="note">
+        <span class="lbl">Por qué esto importa</span>
+        Propietarios con visión a largo plazo son exactamente el tipo de socios que buscamos. Esta pregunta también revela si necesitan educación sobre gestionar una propiedad como un negocio — algo que Pamela podrá abordar en el seguimiento.
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 4: FEES -->
+  <div class="phase-label">
+    <span class="phase-pill pill-mid">Fase 4</span>
+    <span class="phase-line"></span>
+    <span class="phase-desc">Cuando pregunten sobre honorarios — manejar con valor</span>
+  </div>
+
+  <div class="card">
+    <div class="card-hd open" onclick="toggle(this)">
+      <div class="step-circle">6</div>
+      <h3>Cuando Pregunten: "¿Cuánto Cobran?"</h3>
+      <span class="chevron open">▼</span>
+    </div>
+    <div class="card-bd open">
+      <p style="font-size:13.5px; color:var(--mid); margin-bottom:14px;">Esta pregunta va a llegar — y está bien. La clave es contextualizarla dentro del valor antes de dar el número.</p>
+
+      <div class="say">
+        <span class="lbl">Primero, ancla el valor</span>
+        "Qué buena pregunta — y con mucho gusto te explico. Pero antes, déjame ponerte en contexto para que el número tenga sentido."
+      </div>
+      <div class="say">
+        <span class="lbl">Explica el valor</span>
+        "Lo que hacemos en Verandah es mucho más que cobrar la renta. Seleccionamos inquilinos altamente calificados que cuidan la propiedad como si fuera propia. Manejamos cualquier violación de HOA antes de que se convierta en un problema costoso. Hacemos cumplir el contrato de arrendamiento con firmeza y profesionalismo. Y a través de nuestro programa SureVestor, reportamos el historial de pagos del inquilino directamente a Experian — lo que los incentiva a pagar puntualmente cada mes. También los educamos continuamente sobre cómo ser buenos inquilinos y cuidar el hogar."
+      </div>
+
+      <div class="fees-box">
+        <h4>Nuestros Honorarios</h4>
+        <div class="fees-grid">
+          <div class="fee-item">
+            <div class="fee-label">Cuota de Administración Mensual</div>
+            <div class="fee-val">7% – 10%</div>
+            <div class="fee-desc">Del valor mensual de la renta. El porcentaje exacto depende de la valoración de la propiedad.</div>
+          </div>
+          <div class="fee-item">
+            <div class="fee-label">Cuota de Arrendamiento</div>
+            <div class="fee-val">50%</div>
+            <div class="fee-desc">De un mes de renta. Se cobra una sola vez al colocar un nuevo inquilino.</div>
+          </div>
+        </div>
+        <div class="fees-say">
+          "Para darte un número más preciso, necesitamos conocer el valor de renta de tu propiedad — que es exactamente lo que nuestra broker Pamela determinará con un análisis comparativo de mercado. Así que el siguiente paso natural sería que ella se comunique contigo directamente."
+        </div>
+        <div class="fees-note">
+          ⚠️ No menciones el servicio de solo arrendamiento ("Lease Only") en esta conversación. Si el cliente lo pregunta específicamente, dile que Pamela le explicará todas las opciones disponibles en el seguimiento.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 5: CLOSE -->
+  <div class="phase-label">
+    <span class="phase-pill pill-dark">Fase 5</span>
+    <span class="phase-line"></span>
+    <span class="phase-desc">Cierre y próximos pasos — ~2 minutos</span>
+  </div>
+
+  <div class="card">
+    <div class="card-hd open" onclick="toggle(this)">
+      <div class="step-circle">7</div>
+      <h3>Confirmar Datos y Cerrar la Llamada</h3>
+      <span class="time-est">2 min</span>
+      <span class="chevron open">▼</span>
+    </div>
+    <div class="card-bd open">
+
+      <div class="say">
+        <span class="lbl">Antes de cerrar, confirma</span>
+        "Para asegurarme de que Pamela tenga todo lo necesario para comunicarse contigo hoy, ¿me confirmas tu nombre completo, número de teléfono y correo electrónico?"
+      </div>
+
+      <div class="close-box">
+        <h4>Cierre de la Llamada</h4>
+        <div class="close-say">
+          "[Nombre], ha sido un placer hablar contigo. Me alegra mucho que hayas llamado — y creo que hay una muy buena posibilidad de que seamos el equipo indicado para ti. Voy a pasar toda tu información a nuestra broker Pamela, quien es la propietaria de Verandah Properties y tiene más de 20 años de experiencia en este mercado. Ella se comunicará contigo hoy mismo por correo electrónico para darte más información y coordinar una conversación más detallada. ¿Hay algo más en lo que pueda ayudarte antes de terminar?"
+        </div>
+        <div class="close-checklist">
+          ✔ Usa su primer nombre en el cierre<br>
+          ✔ Di "hoy mismo" — no "en unos días"<br>
+          ✔ Posiciona a Pamela como la experta y propietaria<br>
+          ✔ Pregunta si hay algo más — demuestra atención<br>
+          ✔ Termina con calidez: "¡Que tengas un excelente día!"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOLLOW UP GUIDE -->
+  <div class="phase-label">
+    <span class="phase-pill pill-gold">Después</span>
+    <span class="phase-line"></span>
+    <span class="phase-desc">Lo que se cubre hoy vs. en el seguimiento</span>
+  </div>
+
+  <div class="card">
+    <div class="card-hd open" onclick="toggle(this)">
+      <div class="step-circle gold">8</div>
+      <h3>Esta Llamada vs. El Seguimiento de Pamela</h3>
+      <span class="chevron open">▼</span>
+    </div>
+    <div class="card-bd open">
+      <p style="font-size:13.5px; color:var(--mid); margin-bottom:14px;">No todo tiene que resolverse hoy. Aquí está la división natural:</p>
+      <div class="followup-grid">
+        <div class="fu-item">
+          <span class="fu-badge today">Esta llamada — Tú (Abril)</span>
+          <ul>
+            <li>Presentación cálida de Verandah</li>
+            <li>Datos básicos de la propiedad</li>
+            <li>Experiencia previa con administradoras</li>
+            <li>Meta a largo plazo del propietario</li>
+            <li>Contexto general sobre honorarios</li>
+            <li>Confirmar datos de contacto</li>
+            <li>Generar confianza y entusiasmo</li>
+          </ul>
+        </div>
+        <div class="fu-item">
+          <span class="fu-badge later">Seguimiento — Pamela</span>
+          <ul>
+            <li>Análisis comparativo de mercado (CMA)</li>
+            <li>Honorarios exactos según valoración</li>
+            <li>Revisión del contrato de administración</li>
+            <li>Proceso de selección de inquilinos</li>
+            <li>Detalles del programa SureVestor</li>
+            <li>Evaluación de condición de propiedad</li>
+            <li>Decidir si es un buen fit mutuo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">
+        <span class="lbl">Después de la llamada — Acción Inmediata</span>
+        Envía a Pamela un resumen con: nombre completo, teléfono, correo, dirección de la propiedad, tipo y estado, fecha estimada de disponibilidad, experiencia previa, idea de precio de renta si la mencionó, metas a largo plazo, y cómo conoció a Verandah. Marca como <strong>seguimiento el mismo día.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Verandah Properties, LLC &nbsp;·&nbsp; (407) 855-0331 &nbsp;·&nbsp; VerandahProperties.com<br>
+    Guía de uso interno — Abril · Confidencial · Preguntas: contactar a Pamela
+  </div>
+
+</div>
+
+<script>
+  function toggle(hd) {
+    const bd = hd.nextElementSibling;
+    const ch = hd.querySelector('.chevron');
+    const open = bd.classList.contains('open');
+    bd.classList.toggle('open', !open);
+    hd.classList.toggle('open', !open);
+    ch.classList.toggle('open', !open);
+  }
+</script>
+</body>
+</html>
